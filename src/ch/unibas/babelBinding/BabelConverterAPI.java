@@ -24,8 +24,8 @@ public class BabelConverterAPI {
     /**
      * Two objects used internally by OpenBabel for conversion
      */
-    OBConversion conv = null;
-    OBMol mol = null;
+    private OBConversion conv = null;
+    private OBMol mol = null;
     
     private final static Logger logger = Logger.getLogger(BabelConverterAPI.class);
 

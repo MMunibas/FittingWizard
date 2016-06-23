@@ -2,4 +2,6 @@
 /build/
 /dist/
 /data/
-
+/scripts/config.ini
+.directory
+/testing
