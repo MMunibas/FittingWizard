@@ -1,12 +1,13 @@
 #!/bin/bash
 
-user=hedin
+user=$USER
+cluster="verdi.chemie.unibas.ch"
 stop=0
 myid=$1
 
 while true;
 do 
-    out=$(ssh verdi "qstat -u $user"| grep $myid | awk '{print $1}')
+    out=$(ssh $cluster "qstat -u $user"| grep $myid | awk '{print $1}')
     arr=($out)
     size=${#arr[@]}
     if [ "$size" -eq "$stop" ]; then
