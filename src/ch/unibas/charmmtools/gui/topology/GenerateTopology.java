@@ -10,6 +10,7 @@ package ch.unibas.charmmtools.gui.topology;
 
 import ch.unibas.charmmtools.files.coordinates.COR_generate;
 import ch.unibas.charmmtools.files.coordinates.PDB_generate;
+import ch.unibas.charmmtools.files.coordinates.PDB_pureLiquid_generate;
 import ch.unibas.charmmtools.files.coordinates.coordinates_writer;
 import ch.unibas.charmmtools.files.structure.PSF_generate;
 import ch.unibas.charmmtools.files.topology.RTF_generate;
@@ -22,7 +23,9 @@ import ch.unibas.fittingwizard.presentation.base.dialog.OverlayDialog;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -63,7 +66,11 @@ public class GenerateTopology extends CHARMM_GUI_base {
 
     private List<MyTab> tab_list = new ArrayList<>();
     private List<coordinates_writer> filesList = new ArrayList<>();
-
+    
+    private Map<String, String> writtenFiles = new HashMap<String, String>();
+    
+    private PDB_pureLiquid_generate pdbLiq = null;
+    
     public GenerateTopology(RunCHARMMWorkflow flow) {
         super(title, flow);
     }
@@ -107,6 +114,7 @@ public class GenerateTopology extends CHARMM_GUI_base {
         PSF_generate psff = null;
         PDB_generate pdbf = null;
         COR_generate corf = null;
+        
 
         try {
             //generates a topology file
@@ -120,7 +128,7 @@ public class GenerateTopology extends CHARMM_GUI_base {
 
             //and cor file
             corf = new COR_generate(psff);
-
+            
             tab_list.add(new MyTab("RTF file", rtff.getTextContent()));
             filesList.add(rtff);
 
@@ -150,14 +158,28 @@ public class GenerateTopology extends CHARMM_GUI_base {
         boolean failure = false;
         for (int i = 0; i < tab_list.size(); i++) {
             try {
+                
                 String s = tab_list.get(i).getContentText();
                 filesList.get(i).setModifiedTextContent(s);
-                filesList.get(i).writeFile(work_directory);
+                
+                String id = filesList.get(i).myID();
+                String fi = filesList.get(i).writeFile(work_directory);
+
+                writtenFiles.put(id,fi);
+                
             } catch (IOException ex) {
                 logger.error("Error while saving to file : " + ex);
                 failure = true;
             }
         }
+        
+        // and a pdb file of solute pure liquid 
+        File pdbfi = new File(writtenFiles.get("pdb"));
+        pdbLiq = new PDB_pureLiquid_generate(
+                        this.charmmWorkflow.getWork_directory(),
+                        pdbfi
+                        );
+        pdbLiq.generate();
 
         if (failure) {
             OverlayDialog.showError("Error while saving files", "Error while saving your files in directory : " + this.work_directory.getAbsolutePath());

@@ -619,21 +619,23 @@ public final class RTF_generate extends RTF implements coordinates_writer{
     }
 
     /**
-     * Saves the file in a given directory
+     * Saves the top file in a given directory
      * 
-     * @param dir a directory where to save the file
+     * @param dir a directory where to save the top file
+     * @return returns the path of the written file for a possible direct use
      * @throws IOException Thrown if problem happens when writing file
      */
     @Override
-    public void writeFile(File dir) throws IOException{
-        
+    public String writeFile(File dir) throws IOException {
+        File fi = new File(dir,fname+".top");
         Writer writerf = new BufferedWriter(
-                new FileWriter(
-                        new File(dir,fname+".top")
+                new FileWriter(fi
                 )
         );
         writerf.write(writer.toString());
         writerf.close();
+        
+        return fi.getAbsolutePath();
     }
 
     /**
@@ -647,6 +649,11 @@ public final class RTF_generate extends RTF implements coordinates_writer{
         writer = null;
         writer = new CharArrayWriter();
         writer.write(content);
+    }
+    
+    @Override
+    public String myID() {
+        return "top";
     }
 
 }//end of class

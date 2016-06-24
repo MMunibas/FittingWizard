@@ -114,17 +114,20 @@ public class PDB_generate extends PDB implements coordinates_writer{
      * Saves the pdb file in a given directory
      * 
      * @param dir a directory where to save the pdb file
+     * @return returns the path of the written file for a possible direct use
      * @throws IOException Thrown if problem happens when writing file
      */
     @Override
-    public void writeFile(File dir) throws IOException {
+    public String writeFile(File dir) throws IOException {
+        File fi = new File(dir,fname+".pdb");
         Writer writerf = new BufferedWriter(
-                new FileWriter(
-                        new File(dir,fname+".pdb")
+                new FileWriter(fi
                 )
         );
         writerf.write(writer.toString());
         writerf.close();
+        
+        return fi.getAbsolutePath();
     }
     
     /**
@@ -140,4 +143,9 @@ public class PDB_generate extends PDB implements coordinates_writer{
         writer.write(content);
     }
 
+    @Override
+    public String myID() {
+        return "pdb";
+    }
+    
 }

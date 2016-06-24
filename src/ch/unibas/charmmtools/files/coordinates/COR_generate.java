@@ -169,17 +169,20 @@ public class COR_generate extends COR implements coordinates_writer{
      * Saves the cor file in a given directory
      * 
      * @param dir a directory where to save the cor file
+     * @return returns the path of the written file for a possible direct use
      * @throws IOException Thrown if problem happens when writing file
      */
     @Override
-    public void writeFile(File dir) throws IOException {
+    public String writeFile(File dir) throws IOException {
+        File fi = new File(dir,OutFileName+".cor");
         Writer writerf = new BufferedWriter(
-                new FileWriter(
-                        new File(dir,OutFileName+".cor")
+                new FileWriter(fi
                 )
         );
         writerf.write(writer.toString());
         writerf.close();
+        
+        return fi.getAbsolutePath();
     }
     
     /**
@@ -193,6 +196,11 @@ public class COR_generate extends COR implements coordinates_writer{
         writer = null;
         writer = new CharArrayWriter();
         writer.write(content);
+    }
+    
+    @Override
+    public String myID() {
+        return "cor";
     }
     
 }

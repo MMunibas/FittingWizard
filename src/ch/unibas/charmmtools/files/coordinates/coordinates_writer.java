@@ -29,9 +29,10 @@ public interface coordinates_writer {
      * Saves the file in a given directory
      * 
      * @param dir a directory where to save the file
+     * @return returns the path of the written file for a possible direct use
      * @throws IOException Thrown if problem happens when writing file
      */
-    public void writeFile(File dir) throws IOException;
+    public String writeFile(File dir) throws IOException;
 
     /**
      * Define content of the writer object using a string
@@ -39,4 +40,11 @@ public interface coordinates_writer {
      * @throws IOException Thrown if problem happens when writing file
      */
     public void setModifiedTextContent(String content) throws IOException;
+    
+    /**
+     * Return the type of file being written : "pdb","psf", etc...
+     * 
+     * @return a string identifying the type of the current coordinates_writer
+     */
+    public String myID();
 }

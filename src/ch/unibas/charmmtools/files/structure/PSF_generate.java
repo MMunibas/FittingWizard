@@ -305,18 +305,22 @@ public final class PSF_generate extends PSF implements coordinates_writer{
      * Saves the psf file in a given directory
      * 
      * @param dir a directory where to save the psf file
-     * @throws IOException
+     * @return returns the path of the written file for a possible direct use
+     * @throws IOException Thrown if problem happens when writing file
      */
     @Override
-    public void writeFile(File dir) throws IOException{
+    public String writeFile(File dir) throws IOException {
+        File fi = new File(dir,myname+".psf");
         Writer writerf = new BufferedWriter(
-                new FileWriter(
-                        new File(dir,myname+".psf")
+                new FileWriter(fi
                 )
         );
         writerf.write(writer.toString());
         writerf.close();
+        
+        return fi.getAbsolutePath();
     }
+    
     
     /**
      * Define content of the writer object using a string
@@ -330,6 +334,11 @@ public final class PSF_generate extends PSF implements coordinates_writer{
         writer = null;
         writer = new CharArrayWriter();
         writer.write(content);
+    }
+
+    @Override
+    public String myID() {
+        return "psf";
     }
 
 }//end class
