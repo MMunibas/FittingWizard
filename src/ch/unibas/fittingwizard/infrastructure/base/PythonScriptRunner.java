@@ -30,10 +30,10 @@ public class PythonScriptRunner {
     public PythonScriptRunner(){
         Settings settings = Settings.loadConfig();
 
-        Map<String, String> env = new HashMap<>();
-        env.put("PYTHONPATH", settings.getPythonPath().toString());
-        env.put("LD_LIBRARY_PATH", settings.getLDLibraryPath().toString());
-        this.putEnvironment(env);
+        //Map<String, String> env = new HashMap<>();
+        //env.put("PYTHONPATH", settings.getPythonPath().toString());
+        //env.put("LD_LIBRARY_PATH", settings.getLDLibraryPath().toString());
+        //this.putEnvironment(env);
     }
     
 //    public PythonScriptRunner(Map<String, String> env){
