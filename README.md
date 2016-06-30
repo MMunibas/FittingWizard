@@ -9,6 +9,7 @@ https://github.com/FHedin/FittingWizard
 
 Florent Hédin (florent.hedin@unibas.ch) , Markus Meuwly (m.meuwly@unibas.ch)
 
+Most of the python scripts were written by Tristan bereau (https://github.com/tbereau), who initiated the project.
 
 ----------------------------------------------
 ## Installation and use
