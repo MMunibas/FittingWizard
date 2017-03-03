@@ -17,6 +17,10 @@ Most of the python scripts were written by Tristan bereau (https://github.com/tb
 
 Please check the Wiki at https://github.com/FHedin/FittingWizard/wiki for detailed instructions.
 
+Ready to use releases (will still have to install some dependancies ! ) : are located here :
+
+https://github.com/MMunibas/FittingWizard/releases
+
 ----------------------------------------------
 ## Licensing
 ----------------------------------------------
